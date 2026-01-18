@@ -24,6 +24,9 @@
 ## start docker db
 docker run --name my-postgres -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432 -v postgres_data:/var/lib/postgresql/data -d postgres
 
+# or Start the Postgres container
+docker-compose up -d
+
 ## Description
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.

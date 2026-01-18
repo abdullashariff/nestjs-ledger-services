@@ -7,7 +7,13 @@ export class TransactionController {
 
   @Get()
   getHello(): string {
-    return this.appService.getHello();
+    return "app is working";
+  }
+
+
+   @Get()
+  async getTrasactionsByType(transactionType: string) {
+     await this.appService.getTrasactionsByType(transactionType);
   }
 
   // this will not override, and request always come on above function
@@ -22,9 +28,9 @@ export class TransactionController {
   }
 
   @Post()
-  postData(data): string {
+  postData(data) {
     console.log("data", data)
-    return this.appService.getHello();
+    this.appService.saveData(data);
   }
 
 }

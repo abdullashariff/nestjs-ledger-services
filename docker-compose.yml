@@ -1,21 +1,39 @@
 # Use a Node.js base image
-FROM node:18-alpine
+# FROM node:18-alpine
 
-# Set the working directory
-WORKDIR /app
+version: '3.8'
+services:
+  db:
+    image: postgres:15
+    container_name: ledger_db
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: ledger_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
 
-# Copy package.json and package-lock.json and install production dependencies
-COPY package*.json ./
-RUN npm install --only=production
+volumes:
+  pgdata:
 
-# Copy the rest of the application code
-COPY . .
+# # Set the working directory
+# WORKDIR /app
 
-# Build the NestJS application
-RUN npm run build
+# # Copy package.json and package-lock.json and install production dependencies
+# COPY package*.json ./
+# RUN npm install --only=production
 
-# Expose the application port
-EXPOSE 3000
+# # Copy the rest of the application code
+# COPY . .
 
-# Start the application in production mode
-CMD ["npm", "run", "start:prod"]
+# # Build the NestJS application
+# RUN npm run build
+
+# # Expose the application port
+# EXPOSE 3000
+
+# # Start the application in production mode
+# CMD ["npm", "run", "start:prod"]
