@@ -1,5 +1,8 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query, UseGuards } from '@nestjs/common';
 import { TransactionService } from './transaction.service';
+import { AuthGuard } from './guards/auth.guard';
+
+// @UseGuards(AuthGuard) // Protects ALL routes in this controller
 @Controller('transactions') // Move the path here
 export class TransactionController {
   constructor(private readonly appService: TransactionService) { }
