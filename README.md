@@ -102,3 +102,20 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+
+## add data
+curl.exe -X POST http://localhost:3000/transactions `
+  -H "Content-Type: application/json" `
+  -d '{\"accountId\": \"user_123\", \"amount\": 150.00, \"type\": \"deposit\", \"description\": \"Initial funding\"}'
+
+  curl.exe -X POST http://localhost:3000/transactions `
+  -H "Content-Type: application/json" `
+  -d '{\"accountId\": \"user_123\", \"amount\": 150.00, \"type\": \"credit\", \"description\": \"Initial funding\"}'
+
+    curl.exe -X POST http://localhost:3000/transactions `
+  -H "Content-Type: application/json" `
+  -d '{\"accountId\": \"user_123\", \"amount\": 150.00, \"type\": \"debit\", \"description\": \"Initial funding\"}'
+
+
+  ## retreive
+  http://localhost:3000/transactions/

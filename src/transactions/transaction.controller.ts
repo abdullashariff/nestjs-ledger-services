@@ -1,36 +1,39 @@
-import { Controller, Get, Param, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { TransactionService } from './transaction.service';
-
-@Controller()
+@Controller('transactions') // Move the path here
 export class TransactionController {
   constructor(private readonly appService: TransactionService) { }
 
-  @Get()
+  @Get('status') // Change from @Get() to avoid conflicts
   getHello(): string {
     return "app is working";
   }
 
-
-   @Get()
-  async getTrasactionsByType(transactionType: string) {
-     await this.appService.getTrasactionsByType(transactionType);
+  @Get('filter') // specific path: /transactions/filter?type=deposit
+  async getTransactionsByType(@Query('type') type: string) {
+    return await this.appService.getTrasactionsByType(type);
   }
 
-  // this will not override, and request always come on above function
-  @Get()
+   @Get() // specific path: /transactions/filter?type=deposit
+  async getTrasactions() {
+    return await this.appService.getTrasactions();
+  }
+
+  
+
+  @Get('search') // specific path: /transactions/search?name=xyz
   findAll(@Query('name') name: string, @Query('sort') sort: string) {
-    return `This action returns users filtered by name: ${name} and sorted by: ${sort}`;
+    return `Filtering by name: ${name} and sorted by: ${sort}`;
   }
 
-  @Get(':id')
+  @Get(':id') // path: /transactions/123
   findOne(@Param('id') id: string) {
-    return `This action returns a transaction with ID: ${id}`;
+    return `Returning transaction with ID: ${id}`;
   }
 
-  @Post()
-  postData(data) {
-    console.log("data", data)
-    this.appService.saveData(data);
+  @Post() // path: POST /transactions
+  async postData(@Body() data) {
+    console.log("Saving data:", data);
+    return await this.appService.saveData(data); // Always 'return' the result
   }
-
 }

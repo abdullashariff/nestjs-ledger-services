@@ -75,6 +75,15 @@ export class TransactionService {
     return result;
   }
 
+  async getTrasactions(): Promise<Array<Transaction>> {
+    const result = await this.transactionRepo
+      .createQueryBuilder('t')
+      // .where('t.type = :type', { type })
+      .getMany();
+
+    return result;
+  }
+
   async saveData(data: Partial<Transaction>): Promise<Transaction> {
     // 1. Basic Validation logic
     if (data.amount === 0) {
